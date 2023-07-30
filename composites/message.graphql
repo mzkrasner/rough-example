@@ -1,0 +1,11 @@
+type BasicProfile @loadModel(id: "$BASICPROF_ID") {
+	id: ID!
+}
+
+type Message @createModel(accountRelation: LIST, description: "A message") {
+	Message: String! @string(minLength: 1, maxLength: 400)
+	edited: DateTime
+	sent: DateTime!
+	profileID: StreamID! @documentReference(model: "BasicProfile")
+	profile: BasicProfile! @relationDocument(property: "profileID")
+}
